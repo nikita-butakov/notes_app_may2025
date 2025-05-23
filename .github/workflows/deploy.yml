@@ -9,6 +9,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      ECR_REPOSITORY_BACKEND: ${{ secrets.ECR_REPOSITORY_BACKEND }}
+      ECR_REPOSITORY_FRONTEND: ${{ secrets.ECR_REPOSITORY_FRONTEND }}
+      ECS_CLUSTER_NAME: ${{ secrets.ECS_CLUSTER_NAME }}
+      ECS_SERVICE_NAME_BACKEND: ${{ secrets.ECS_SERVICE_NAME_BACKEND }}
+      ECS_SERVICE_NAME_FRONTEND: ${{ secrets.ECS_SERVICE_NAME_FRONTEND }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
