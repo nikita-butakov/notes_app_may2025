@@ -1,24 +1,16 @@
-name: Deploy to Amazon ECS (Fargate)
+name: Deploy to AWS ECS
 
 on:
   push:
     branches:
       - main
 
-env:
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-  ECR_REPOSITORY_BACKEND: ${{ secrets.ECR_REPOSITORY_BACKEND }}
-  ECR_REPOSITORY_FRONTEND: ${{ secrets.ECR_REPOSITORY_FRONTEND }}
-  ECS_CLUSTER_NAME: ${{ secrets.ECS_CLUSTER_NAME }}
-  ECS_SERVICE_NAME: ${{ secrets.ECS_SERVICE_NAME }}
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Configure AWS credentials
@@ -26,29 +18,38 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to Amazon ECR
         run: |
-          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+          aws ecr get-login-password --region $AWS_REGION | \
+          docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
-      - name: Build and push backend
+      - name: Build and push backend image
         run: |
           docker build -t $ECR_REPOSITORY_BACKEND ./backend
           docker tag $ECR_REPOSITORY_BACKEND:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_BACKEND:latest
           docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_BACKEND:latest
 
-      - name: Build and push frontend
+      - name: Build and push frontend image
         run: |
           docker build -t $ECR_REPOSITORY_FRONTEND ./frontend
           docker tag $ECR_REPOSITORY_FRONTEND:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_FRONTEND:latest
           docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_FRONTEND:latest
 
-      - name: Force ECS deployment
+      - name: Force ECS deployment for backend
         run: |
           aws ecs update-service \
             --cluster $ECS_CLUSTER_NAME \
-            --service $ECS_SERVICE_NAME \
+            --service $ECS_SERVICE_NAME_BACKEND \
+            --force-new-deployment \
+            --region $AWS_REGION
+
+      - name: Force ECS deployment for frontend
+        run: |
+          aws ecs update-service \
+            --cluster $ECS_CLUSTER_NAME \
+            --service $ECS_SERVICE_NAME_FRONTEND \
             --force-new-deployment \
             --region $AWS_REGION
 
