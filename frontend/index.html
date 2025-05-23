@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Notes App</title>
+</head>
+<body>
+  <h1>Notes</h1>
+  <ul id="notes"></ul>
+
+  <h2>Add Note</h2>
+  <form id="note-form">
+    <input type="text" id="title" placeholder="Title" required><br>
+    <textarea id="content" placeholder="Content" required></textarea><br>
+    <button type="submit">Add</button>
+  </form>
+
+  <script>
+    const apiUrl = '/api/notes';
+
+    function loadNotes() {
+      fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+          const ul = document.getElementById('notes');
+          ul.innerHTML = '';
+          data.forEach(n => {
+            const li = document.createElement('li');
+            li.textContent = `${n.title}: ${n.content}`;
+            ul.append(li);
+          });
+        });
+    }
+
+    document.getElementById('note-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const title = document.getElementById('title').value;
+      const content = document.getElementById('content').value;
+
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ title, content })
+      }).then(() => {
+        loadNotes();
+        e.target.reset();
+      });
+    });
+
+    loadNotes();
+  </script>
+</body>
+</html>

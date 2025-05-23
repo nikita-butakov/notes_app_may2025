@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      DB_NAME: notes
+      DB_USER: postgres
+      DB_PASSWORD: 135890Abcd!
+      DB_HOST: notes-db.c32qumso08gc.ca-central-1.rds.amazonaws.com
+      DB_PORT: "5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
