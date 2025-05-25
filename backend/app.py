@@ -4,13 +4,27 @@ import psycopg2
 
 app = Flask(__name__)
 
+# Get environment variables
+db_name = os.environ.get("DB_NAME")
+db_user = os.environ.get("DB_USER")
+db_password = os.environ.get("DB_PASSWORD")
+db_host = os.environ.get("DB_HOST")
+db_port = os.environ.get("DB_PORT", "5432")
+
+# Debug: print DB config (you can remove this after deployment)
+print("Connecting to DB with:")
+print("DB_NAME:", db_name)
+print("DB_USER:", db_user)
+print("DB_HOST:", db_host)
+print("DB_PORT:", db_port)
+
 # Connect to RDS PostgreSQL
 conn = psycopg2.connect(
-    dbname=os.environ.get("DB_NAME", "notes"),
-    user=os.environ.get("DB_USER", "admin"),
-    password=os.environ.get("DB_PASSWORD"),
-    host=os.environ.get("DB_HOST"),
-    port=os.environ.get("DB_PORT", "5432")
+    dbname=db_name,
+    user=db_user,
+    password=db_password,
+    host=db_host,
+    port=db_port
 )
 cur = conn.cursor()
 
@@ -46,3 +60,4 @@ def add_note():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
