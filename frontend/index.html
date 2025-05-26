@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Notes App</title>
+  <title>📝 Notes App</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,6 +17,19 @@
       color: #2c3e50;
     }
 
+    .project-info {
+      background-color: #e3f2fd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .project-info ul {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
     #search {
       width: 100%;
       padding: 10px;
@@ -25,24 +38,49 @@
       border-radius: 5px;
     }
 
+    #notes {
+      list-style: none;
+      padding-left: 0;
+    }
+
     #notes li {
       background: #fff;
       margin-bottom: 10px;
-      padding: 10px;
-      border-left: 5px solid #3498db;
+      padding: 8px 12px;
+      border-left: 4px solid #3498db;
       border-radius: 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 0.95em;
+    }
+
+    .note-content {
+      max-width: 70%;
+      overflow-wrap: anywhere;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 5px;
+    }
+
+    .btn {
+      padding: 4px 8px;
+      font-size: 0.85em;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background: #f39c12;
+      color: white;
     }
 
     .delete-btn {
       background: #e74c3c;
       color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 3px;
-      cursor: pointer;
     }
 
     form input, form textarea {
@@ -74,49 +112,69 @@
 </head>
 <body>
 
-  <h1>Notes App</h1>
+  <h1>📝 Notes App</h1>
 
-  <input type="text" id="search" placeholder="Search notes...">
+  <div class="project-info">
+    <strong>📦 Production-Ready Notes App</strong> — built by Nikita Butakov, released on <strong>25 May 2025</strong>.
+    <ul>
+      <li>⚙️ <strong>Flask</strong> — Python backend</li>
+      <li>🐳 <strong>Docker</strong> — containerization</li>
+      <li>☁️ <strong>Amazon ECS (Fargate)</strong> — serverless hosting</li>
+      <li>🛢️ <strong>Amazon RDS (PostgreSQL)</strong> — managed DB</li>
+      <li>📊 <strong>CloudWatch</strong> — optional logging/monitoring</li>
+      <li>🔁 <strong>GitHub Actions</strong> — CI/CD automation</li>
+      <li>📦 <strong>Amazon ECR</strong> — Docker image registry</li>
+    </ul>
+  </div>
+
+  <input type="text" id="search" placeholder="🔍 Search notes...">
 
   <ul id="notes"></ul>
 
-  <h2>Add Note</h2>
+  <h2>➕ Add Note</h2>
   <form id="note-form">
     <input type="text" id="title" placeholder="Title" required>
     <textarea id="content" placeholder="Content" required></textarea>
     <button type="submit">Add</button>
   </form>
 
-<footer>
-  <p>Created by Nikita Butakov | Release: 25 May 2025</p>
-  <p>
-    This is a simple production-style Notes App built with:
-    <ul>
-      <li><strong>Flask</strong> — Python backend framework for handling API routes</li>
-      <li><strong>Docker</strong> — containerizing both frontend and backend for portability</li>
-      <li><strong>Amazon ECS (Fargate)</strong> — serverless container hosting without managing EC2</li>
-      <li><strong>Amazon RDS (PostgreSQL)</strong> — managed database for note storage</li>
-      <li><strong>Amazon CloudWatch</strong> — centralized logging and monitoring (optional)</li>
-      <li><strong>GitHub Actions</strong> — CI/CD pipeline for building and pushing Docker images to</li>
-      <li><strong>Amazon ECR</strong> — container registry used to store application images</li>
-    </ul>
-  </p>
-</footer>
-
+  <footer>
+    <p>© 2025 Nikita Butakov</p>
+  </footer>
 
   <script>
     const apiUrl = '/api/notes';
     let allNotes = [];
 
-    function renderNotes(filteredNotes) {
+    function renderNotes(notes) {
       const ul = document.getElementById('notes');
       ul.innerHTML = '';
 
-      filteredNotes.forEach(n => {
+      notes.forEach(note => {
         const li = document.createElement('li');
-        li.innerHTML = `
-          <span><strong>${n.title}</strong>: ${n.content}</span>
-          <button class="delete-btn" onclick="deleteNote('${n.id}')">Delete</button>`;
+        li.setAttribute('data-id', note.id);
+
+        const span = document.createElement('span');
+        span.classList.add('note-content');
+        span.innerHTML = `<strong>${note.title}</strong>: ${note.content}`;
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn edit-btn';
+        editBtn.textContent = 'Edit';
+        editBtn.onclick = () => editNote(note, span, li);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn delete-btn';
+        delBtn.textContent = 'Delete';
+        delBtn.onclick = () => deleteNote(note.id, li);
+
+        const btnGroup = document.createElement('div');
+        btnGroup.className = 'btn-group';
+        btnGroup.appendChild(editBtn);
+        btnGroup.appendChild(delBtn);
+
+        li.appendChild(span);
+        li.appendChild(btnGroup);
         ul.appendChild(li);
       });
     }
@@ -130,13 +188,33 @@
         });
     }
 
-    function deleteNote(id) {
-      fetch(`${apiUrl}/${id}`, {
-        method: 'DELETE'
-      }).then(() => {
-        allNotes = allNotes.filter(note => note.id !== id);
-        renderNotes(allNotes);
-      });
+    function deleteNote(id, li) {
+      fetch(`${apiUrl}/${id}`, { method: 'DELETE' })
+        .then(res => {
+          if (res.ok) {
+            li.remove();
+            allNotes = allNotes.filter(n => n.id !== id);
+          }
+        });
+    }
+
+    function editNote(note, spanElement, li) {
+      const newTitle = prompt('Edit title:', note.title);
+      const newContent = prompt('Edit content:', note.content);
+
+      if (newTitle !== null && newContent !== null) {
+        fetch(`${apiUrl}/${note.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: newTitle, content: newContent })
+        }).then(res => {
+          if (res.ok) {
+            spanElement.innerHTML = `<strong>${newTitle}</strong>: ${newContent}`;
+            const idx = allNotes.findIndex(n => n.id === note.id);
+            allNotes[idx] = { id: note.id, title: newTitle, content: newContent };
+          }
+        });
+      }
     }
 
     document.getElementById('note-form').addEventListener('submit', e => {
@@ -146,7 +224,7 @@
 
       fetch(apiUrl, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, content })
       }).then(() => {
         loadNotes();
