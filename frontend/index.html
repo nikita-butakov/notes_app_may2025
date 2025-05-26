@@ -114,18 +114,22 @@
 
   <h1>📝 Notes App</h1>
 
-  <div class="project-info">
-    <strong>📦 Production-Ready Notes App</strong> — built by Nikita Butakov, released on <strong>25 May 2025</strong>.
-    <ul>
-      <li>⚙️ <strong>Flask</strong> — Python backend</li>
-      <li>🐳 <strong>Docker</strong> — containerization</li>
-      <li>☁️ <strong>Amazon ECS (Fargate)</strong> — serverless hosting</li>
-      <li>🛢️ <strong>Amazon RDS (PostgreSQL)</strong> — managed DB</li>
-      <li>📊 <strong>CloudWatch</strong> — optional logging/monitoring</li>
-      <li>🔁 <strong>GitHub Actions</strong> — CI/CD automation</li>
-      <li>📦 <strong>Amazon ECR</strong> — Docker image registry</li>
-    </ul>
-  </div>
+<div class="project-info">
+  <strong>📦 Production-Ready Notes App</strong> — built by <a href="https://github.com/nikita-butakov" target="_blank">Nikita Butakov</a>, released on <strong>25 May 2025</strong>.  
+  Source code available on <a href="https://github.com/nikita-butakov/notes_app_may2025" target="_blank">GitHub</a>.
+  <ul>
+    <li>⚙️ <strong>Flask</strong> — Python backend</li>
+    <li>🐳 <strong>Docker</strong> — containerization</li>
+    <li>☁️ <strong>Amazon ECS (Fargate)</strong> — serverless container hosting</li>
+    <li>🛢️ <strong>Amazon RDS (PostgreSQL)</strong> — managed relational database</li>
+    <li>🧱 <strong>Amazon ECR</strong> — Docker image registry</li>
+    <li>📶 <strong>Application Load Balancer (ALB)</strong> — traffic distribution</li>
+    <li>🎯 <strong>Target Group (TG)</strong> — connects ALB to ECS tasks</li>
+    <li>🔐 <strong>Security Groups (SG)</strong> — firewall-level access control</li>
+    <li>🔁 <strong>GitHub Actions</strong> — CI/CD automation pipeline</li>
+    <li>📊 <strong>Amazon CloudWatch</strong> — monitoring and optional logging</li>
+  </ul>
+</div>
 
   <input type="text" id="search" placeholder="🔍 Search notes...">
 
