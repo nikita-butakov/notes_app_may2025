@@ -20,7 +20,6 @@ try:
         port=db_port
     )
     cur = conn.cursor()
-    # Создаём таблицу при запуске
     cur.execute("""
     CREATE TABLE IF NOT EXISTS notes (
         id SERIAL PRIMARY KEY,
@@ -39,7 +38,7 @@ def get_notes():
     if conn is None:
         return jsonify({"error": "Нет соединения с базой данных"}), 500
     try:
-        cur.execute("SELECT id, title, content FROM notes")
+        cur.execute("SELECT id, title, content FROM notes ORDER BY id DESC")
         rows = cur.fetchall()
         notes = [{'id': r[0], 'title': r[1], 'content': r[2]} for r in rows]
         return jsonify(notes)
@@ -63,6 +62,21 @@ def add_note():
         return jsonify({'id': new_id, 'title': title, 'content': content}), 201
     except Exception as e:
         return jsonify({"error": f"Ошибка при добавлении заметки: {e}"}), 500
+
+@app.route('/api/notes/<int:note_id>', methods=['DELETE'])
+def delete_note(note_id):
+    if conn is None:
+        return jsonify({"error": "Нет соединения с базой данных"}), 500
+    try:
+        cur.execute("DELETE FROM notes WHERE id = %s RETURNING id", (note_id,))
+        deleted = cur.fetchone()
+        conn.commit()
+        if deleted:
+            return jsonify({"message": f"Заметка с id {note_id} удалена"}), 200
+        else:
+            return jsonify({"error": f"Заметка с id {note_id} не найдена"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Ошибка при удалении заметки: {e}"}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

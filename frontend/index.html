@@ -1,35 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Notes App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f8;
+      color: #333;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      color: #2c3e50;
+    }
+
+    #search {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #notes li {
+      background: #fff;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-left: 5px solid #3498db;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .delete-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    form button {
+      background-color: #2ecc71;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      color: #777;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
-  <h1>Notes</h1>
+
+  <h1>Notes App</h1>
+
+  <input type="text" id="search" placeholder="Search notes...">
+
   <ul id="notes"></ul>
 
   <h2>Add Note</h2>
   <form id="note-form">
-    <input type="text" id="title" placeholder="Title" required><br>
-    <textarea id="content" placeholder="Content" required></textarea><br>
+    <input type="text" id="title" placeholder="Title" required>
+    <textarea id="content" placeholder="Content" required></textarea>
     <button type="submit">Add</button>
   </form>
 
+<footer>
+  <p>Created by Nikita Butakov | Release: 25 May 2025</p>
+  <p>
+    This is a simple production-style Notes App built with:
+    <ul>
+      <li><strong>Flask</strong> — Python backend framework for handling API routes</li>
+      <li><strong>Docker</strong> — containerizing both frontend and backend for portability</li>
+      <li><strong>Amazon ECS (Fargate)</strong> — serverless container hosting without managing EC2</li>
+      <li><strong>Amazon RDS (PostgreSQL)</strong> — managed database for note storage</li>
+      <li><strong>Amazon CloudWatch</strong> — centralized logging and monitoring (optional)</li>
+      <li><strong>GitHub Actions</strong> — CI/CD pipeline for building and pushing Docker images to</li>
+      <li><strong>Amazon ECR</strong> — container registry used to store application images</li>
+    </ul>
+  </p>
+</footer>
+
+
   <script>
     const apiUrl = '/api/notes';
+    let allNotes = [];
+
+    function renderNotes(filteredNotes) {
+      const ul = document.getElementById('notes');
+      ul.innerHTML = '';
+
+      filteredNotes.forEach(n => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span><strong>${n.title}</strong>: ${n.content}</span>
+          <button class="delete-btn" onclick="deleteNote('${n.id}')">Delete</button>`;
+        ul.appendChild(li);
+      });
+    }
 
     function loadNotes() {
       fetch(apiUrl)
         .then(res => res.json())
         .then(data => {
-          const ul = document.getElementById('notes');
-          ul.innerHTML = '';
-          data.forEach(n => {
-            const li = document.createElement('li');
-            li.textContent = `${n.title}: ${n.content}`;
-            ul.append(li);
-          });
+          allNotes = data;
+          renderNotes(allNotes);
         });
+    }
+
+    function deleteNote(id) {
+      fetch(`${apiUrl}/${id}`, {
+        method: 'DELETE'
+      }).then(() => {
+        allNotes = allNotes.filter(note => note.id !== id);
+        renderNotes(allNotes);
+      });
     }
 
     document.getElementById('note-form').addEventListener('submit', e => {
@@ -47,7 +154,17 @@
       });
     });
 
+    document.getElementById('search').addEventListener('input', e => {
+      const term = e.target.value.toLowerCase();
+      const filtered = allNotes.filter(n =>
+        n.title.toLowerCase().includes(term) || n.content.toLowerCase().includes(term)
+      );
+      renderNotes(filtered);
+    });
+
     loadNotes();
   </script>
+
 </body>
 </html>
+
