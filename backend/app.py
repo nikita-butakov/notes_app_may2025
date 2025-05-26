@@ -78,6 +78,27 @@ def delete_note(note_id):
     except Exception as e:
         return jsonify({"error": f"Ошибка при удалении заметки: {e}"}), 500
 
+@app.route('/api/notes/<int:note_id>', methods=['PUT'])
+def update_note(note_id):
+    if conn is None:
+        return jsonify({"error": "Нет соединения с базой данных"}), 500
+    try:
+        data = request.get_json()
+        title = data.get('title')
+        content = data.get('content')
+        cur.execute(
+            "UPDATE notes SET title = %s, content = %s WHERE id = %s RETURNING id",
+            (title, content, note_id)
+        )
+        updated = cur.fetchone()
+        conn.commit()
+        if updated:
+            return jsonify({"message": f"Заметка с id {note_id} обновлена"}), 200
+        else:
+            return jsonify({"error": f"Заметка с id {note_id} не найдена"}), 404
+    except Exception as e:
+        return jsonify({"error": f"Ошибка при обновлении заметки: {e}"}), 500
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 
