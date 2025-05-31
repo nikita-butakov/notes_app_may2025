@@ -59,34 +59,35 @@ Hi! I’m Nikita, a DevOps Engineer, and this is my personal project where I bui
 
 ## 📸 Screenshots
 
-**Application Load Balancer:**
-- `./screenshots/ALB1.JPG`
-- `./screenshots/ALB2.JPG`
+**Application Load Balancer:**  
+![ALB1](./screenshots/ALB1.jpg)  
+![ALB2](./screenshots/ALB2.jpg)
 
-**Elastic Container Registry:**
-- `./screenshots/ECR.JPG`
+**Elastic Container Registry:**  
+![ECR](./screenshots/ECR.jpg)
 
-**Elastic Container Service:**
-- `./screenshots/ECS1.JPG`
-- `./screenshots/ECS2.JPG`
-- `./screenshots/ECS3.JPG`
+**Elastic Container Service:**  
+![ECS1](./screenshots/ECS1.jpg)  
+![ECS2](./screenshots/ECS2.jpg)  
+![ECS3](./screenshots/ECS3.jpg)
 
-**Amazon RDS:**
-- `./screenshots/RDS.JPG`
+**Amazon RDS:**  
+![RDS](./screenshots/RDS.jpg)
 
-**Networking:**
-- `./screenshots/SG.JPG`
-- `./screenshots/Subnets.JPG`
-- `./screenshots/TG.JPG`
-- `./screenshots/VPC.JPG`
+**Networking:**  
+![Security Groups](./screenshots/SG.jpg)  
+![Subnets](./screenshots/Subnets.jpg)  
+![Target Group](./screenshots/TG.jpg)  
+![VPC](./screenshots/VPC.jpg)
 
-**GitHub Actions CI/CD:**
-- `./screenshots/gitactions.JPG`
-- `./screenshots/gitactions2.JPG`
+**GitHub Actions CI/CD:**  
+![GitHub Actions 1](./screenshots/gitactions.jpg)  
+![GitHub Actions 2](./screenshots/gitactions2.jpg)
 
-**Application Web Page:**
-- `./screenshots/index1.JPG`
-- `./screenshots/index_edit.JPG`
+**Application Web Page:**  
+![App Main Page](./screenshots/index1.jpg)  
+![App Edit Page](./screenshots/index_edit.jpg)
+
 
 ---
 
