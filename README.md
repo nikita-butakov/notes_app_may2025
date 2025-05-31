@@ -53,9 +53,10 @@ Hi! I’m Nikita, a DevOps Engineer, and this is my personal project where I bui
 
 ## 🖼️ Architecture Diagram
 
-<img src="./screenshots/architecture_diagram.png" alt="Architecture Diagram" />
+<img src="./screenshots/architecture_diagram.png" alt="Architecture Diagram" width="100%" />
 
-📎 See the [Architecture Diagram](./architecture_diagram.pdf) for a full overview of services and flow.
+📎 Also available as a [PDF version](./architecture_diagram.pdf) for printing or zooming.
+
 
 ---
 
