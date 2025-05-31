@@ -53,7 +53,7 @@ Hi! I’m Nikita, a DevOps Engineer, and this is my personal project where I bui
 
 ## 🖼️ Architecture Diagram
 
-<img src="./screenshots/architecture_diagram.png" alt="Architecture Diagram" width="100%" />
+<img src="./architecture_diagram.png" alt="Architecture Diagram" width="100%" />
 
 📎 Also available as a [PDF version](./architecture_diagram.pdf) for printing or zooming.
 
