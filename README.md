@@ -53,22 +53,40 @@ Hi! I’m Nikita, a DevOps Engineer, and this is my personal project where I bui
 
 ## 🖼️ Architecture Diagram
 
-📎 See the [Architecture Diagram](./A_flowchart_diagram_depicts_a_cloud-based_note-tak.png) for a full overview of services and flow.
+📎 See the [Architecture Diagram](./architecture_diagram.pdf) for a full overview of services and flow.
 
 ---
 
 ## 📸 Screenshots
 
-📁 Screenshots included:
+**Application Load Balancer:**
+- `./screenshots/ALB1.JPG`
+- `./screenshots/ALB2.JPG`
 
-- `login_page.png`  
-- `dashboard.png`  
-- `ecs_cluster.png`  
-- `rds_config.png`  
-- `github_actions_pipeline.png`  
-- `cloudwatch_logs.png`  
+**Elastic Container Registry:**
+- `./screenshots/ECR.JPG`
 
-You can find them in the `/screenshots/` directory.
+**Elastic Container Service:**
+- `./screenshots/ECS1.JPG`
+- `./screenshots/ECS2.JPG`
+- `./screenshots/ECS3.JPG`
+
+**Amazon RDS:**
+- `./screenshots/RDS.JPG`
+
+**Networking:**
+- `./screenshots/SG.JPG`
+- `./screenshots/Subnets.JPG`
+- `./screenshots/TG.JPG`
+- `./screenshots/VPC.JPG`
+
+**GitHub Actions CI/CD:**
+- `./screenshots/gitactions.JPG`
+- `./screenshots/gitactions2.JPG`
+
+**Application Web Page:**
+- `./screenshots/index1.JPG`
+- `./screenshots/index_edit.JPG`
 
 ---
 
@@ -79,5 +97,3 @@ DevOps • Cloud • Automation
 
 - 🔗 [LinkedIn](https://www.linkedin.com/in/nikita-butakov/)  
 - 🐙 [GitHub](https://github.com/nikita-butakov)
-
----
