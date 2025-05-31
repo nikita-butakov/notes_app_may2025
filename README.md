@@ -85,7 +85,9 @@ Hi! I’m Nikita, a DevOps Engineer, and this is my personal project where I bui
 
 <div align="center">
   <img src="./screenshots/ECS1.jpg" width="400" style="margin: 10px;" />
+  
   <img src="./screenshots/ECS2.jpg" width="400" style="margin: 10px;" />
+  
   <img src="./screenshots/ECS3.jpg" width="400" style="margin: 10px;" />
 </div>
 
@@ -103,8 +105,11 @@ Hi! I’m Nikita, a DevOps Engineer, and this is my personal project where I bui
 
 <div align="center">
   <img src="./screenshots/SG.jpg" width="400" style="margin: 10px;" />
+  
   <img src="./screenshots/Subnets.jpg" width="400" style="margin: 10px;" />
+  
   <img src="./screenshots/TG.jpg" width="400" style="margin: 10px;" />
+  
   <img src="./screenshots/VPC.jpg" width="400" style="margin: 10px;" />
 </div>
 
@@ -114,6 +119,7 @@ Hi! I’m Nikita, a DevOps Engineer, and this is my personal project where I bui
 
 <div align="center">
   <img src="./screenshots/gitactions.jpg" width="450" style="margin: 10px;" />
+  
   <img src="./screenshots/gitactions2.jpg" width="450" style="margin: 10px;" />
 </div>
 
@@ -123,6 +129,7 @@ Hi! I’m Nikita, a DevOps Engineer, and this is my personal project where I bui
 
 <div align="center">
   <img src="./screenshots/index1.jpg" width="450" style="margin: 10px;" />
+  
   <img src="./screenshots/index_edit.jpg" width="450" style="margin: 10px;" />
 </div>
 
