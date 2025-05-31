@@ -66,79 +66,89 @@ Hi! I’m Nikita, a DevOps Engineer, and this is my personal project where I bui
 
 ### ⚖️ Application Load Balancer
 
-<img src="./screenshots/ALB1.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/ALB1.jpg" width="600" />
+</p>
 
-<br>
-
-<img src="./screenshots/ALB2.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/ALB2.jpg" width="600" />
+</p>
 
 ---
 
 ### 📦 Elastic Container Registry (ECR)
 
-<img src="./screenshots/ECR.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/ECR.jpg" width="600" />
+</p>
 
 ---
 
 ### 🐳 Elastic Container Service (ECS)
 
-<img src="./screenshots/ECS1.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/ECS1.jpg" width="600" />
+</p>
 
-<br>
+<p align="center">
+  <img src="./screenshots/ECS2.jpg" width="600" />
+</p>
 
-<img src="./screenshots/ECS2.jpg" width="600" />
-
-<br>
-
-<img src="./screenshots/ECS3.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/ECS3.jpg" width="600" />
+</p>
 
 ---
 
 ### 🛢️ Amazon RDS (PostgreSQL)
 
-<img src="./screenshots/RDS.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/RDS.jpg" width="600" />
+</p>
 
 ---
 
 ### 🌐 Networking (VPC, Subnets, SG, TG)
 
-<img src="./screenshots/SG.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/SG.jpg" width="600" />
+</p>
 
-<br>
+<p align="center">
+  <img src="./screenshots/Subnets.jpg" width="600" />
+</p>
 
-<img src="./screenshots/Subnets.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/TG.jpg" width="600" />
+</p>
 
-<br>
-
-<img src="./screenshots/TG.jpg" width="600" />
-
-<br>
-
-<img src="./screenshots/VPC.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/VPC.jpg" width="600" />
+</p>
 
 ---
 
 ### 🔁 GitHub Actions (CI/CD)
 
-<img src="./screenshots/gitactions.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/gitactions.jpg" width="600" />
+</p>
 
-<br>
-
-<img src="./screenshots/gitactions2.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/gitactions2.jpg" width="600" />
+</p>
 
 ---
 
 ### 🧾 Web App Interface
 
-<img src="./screenshots/index1.jpg" width="600" />
+<p align="center">
+  <img src="./screenshots/index1.jpg" width="600" />
+</p>
 
-<br>
-
-<img src="./screenshots/index_edit.jpg" width="600" />
-
----
-
-
+<p align="center">
+  <img src="./screenshots/index_edit.jpg" width="600" />
+</p>
 
 ---
 
